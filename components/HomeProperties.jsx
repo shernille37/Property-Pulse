@@ -1,9 +1,18 @@
-import properties from "@/properties.json";
 import PropertyCard from "@/components/PropertyCard";
 import Link from "next/link";
 
-const HomeProperties = () => {
-  const recentProperties = properties.slice(0, 3);
+import { FaExclamationTriangle } from "react-icons/fa";
+
+import connectDB from "@/config/database";
+import Property from "@/models/Property";
+
+const HomeProperties = async () => {
+  await connectDB();
+
+  const recentProperties = await Property.find({})
+    .sort({ createdAt: -1 })
+    .limit(3)
+    .lean();
 
   return (
     <>
@@ -12,8 +21,13 @@ const HomeProperties = () => {
           <h2 className="text-3xl font-bold text-blue-500 mb-6 text-center">
             Recent Properties
           </h2>
-          {properties.length === 0 ? (
-            <p>No Properties Found</p>
+          {recentProperties.length === 0 ? (
+            <div className="flex items-center justify-center">
+              <FaExclamationTriangle className="fas fa-exclamation-triangle text-3xl text-yellow-400 mr-8" />
+              <h2 className="text-3xl font-bold text-gray-500 text-center">
+                No Properties Found
+              </h2>
+            </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {recentProperties.map((property) => (

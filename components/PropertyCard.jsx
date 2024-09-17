@@ -31,7 +31,7 @@ const PropertyCard = ({ property }) => {
         className="w-full h-auto rounded-t-xl"
       />
       <div className="p-4">
-        <div className="text-left md:text-center lg:text-left mb-6">
+        <div className="text-center md:text-left lg:text-left mb-6">
           <div className="text-gray-600">{property.type}</div>
           <h3 className="text-xl font-bold">{property.name}</h3>
         </div>
@@ -41,30 +41,29 @@ const PropertyCard = ({ property }) => {
 
         <div className="flex justify-center gap-4 text-gray-500 mb-4">
           <p>
-            <FaBed className="md:hidden lg:inline" /> {property.beds}{" "}
-            <span className="md:hidden lg:inline">
+            <FaBed className=" lg:inline" /> {property.beds}{" "}
+            <span className=" lg:inline">
               Bed{`${property.beds > 1 ? "s" : ""}`}
             </span>
           </p>
           <p>
-            <FaBath className="md:hidden lg:inline" /> {property.baths}{" "}
-            <span className="md:hidden lg:inline">
+            <FaBath className=" lg:inline" /> {property.baths}{" "}
+            <span className=" lg:inline">
               Bath{`${property.baths > 1 ? "s" : ""}`}
             </span>
           </p>
           <p>
-            <FaRulerCombined className="md:hidden lg:inline mr-2" />
-            {property.square_feet}{" "}
-            <span className="md:hidden lg:inline">sqft</span>
+            <FaRulerCombined className=" lg:inline mr-2" />
+            {property.square_feet} <span className=" lg:inline">sqft</span>
           </p>
         </div>
 
         <div className="flex justify-center gap-4 text-green-900 text-sm mb-4">
           <p>
-            <FaMoneyBill className="md:hidden lg:inline" /> Weekly
+            <FaMoneyBill className=" lg:inline" /> Weekly
           </p>
           <p>
-            <FaMoneyBill className="md:hidden lg:inline" /> Monthly
+            <FaMoneyBill className=" lg:inline" /> Monthly
           </p>
         </div>
 

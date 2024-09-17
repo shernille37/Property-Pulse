@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import "@/assets/styles/globals.css";
 
 export const metadata = {
-  title: "Property Pulse",
+  title: "Meow Meow",
   keywords: "rental, property, real estate",
   description: "Find the perfect rental property",
 };
