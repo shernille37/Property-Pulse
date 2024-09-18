@@ -11,6 +11,7 @@ import { notFound } from "next/navigation";
 const ProperyPage = async ({ params }) => {
   await connectDB();
 
+  // TODO: CREATE CUSTOM ERROR
   if (!mongoose.Types.ObjectId.isValid(params.id)) notFound();
 
   const property = await Property.findById(params.id).lean();
