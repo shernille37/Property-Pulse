@@ -24,7 +24,6 @@ const Navbar = () => {
       const res = await getProviders();
       setProviders(res);
     };
-
     setAuthProviders();
   }, []);
 
@@ -171,6 +170,7 @@ const Navbar = () => {
                       alt=""
                       width={0}
                       height={0}
+                      quality={100}
                     />
                   </button>
                 </div>
@@ -264,7 +264,7 @@ const Navbar = () => {
                     <button
                       key={provider.id}
                       onClick={() => signIn(provider.id)}
-                      className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+                      className="flex items-center mx-auto text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
                     >
                       <FaGoogle className="text-white mr-2"></FaGoogle>
                       <span>Login or Register</span>

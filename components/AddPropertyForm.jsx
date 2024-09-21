@@ -1,8 +1,29 @@
+"use client";
+
 import addProperty from "@/app/actions/addProperty";
+import LoadingPage from "@/app/loading";
+
+import { useState, useTransition } from "react";
 
 const AddPropertyForm = () => {
+  const [isPending, startTransition] = useTransition();
+  const [isLoading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    startTransition(async () => {
+      const formData = new FormData(e.target);
+      await addProperty(formData);
+      setLoading(false);
+    });
+  };
+
+  if (isPending) return <LoadingPage />;
+
   return (
-    <form action={addProperty}>
+    <form onSubmit={handleSubmit}>
       <h2 className="text-3xl text-center font-semibold mb-6">Add Property</h2>
 
       <div className="mb-4">
@@ -396,6 +417,7 @@ const AddPropertyForm = () => {
         <button
           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
           type="submit"
+          disabled={isLoading || isPending}
         >
           Add Property
         </button>
