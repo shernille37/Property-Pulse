@@ -77,6 +77,7 @@ const Navbar = () => {
                   className={`${
                     pathName === "/" ? "bg-black" : ""
                   } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 `}
+                  onClick={() => setProfileOpen(false)}
                 >
                   Home
                 </Link>
@@ -85,6 +86,7 @@ const Navbar = () => {
                   className={`${
                     pathName === "/properties" ? "bg-black" : ""
                   } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 `}
+                  onClick={() => setProfileOpen(false)}
                 >
                   Properties
                 </Link>
@@ -94,6 +96,7 @@ const Navbar = () => {
                     className={`${
                       pathName === "/properties/add" ? "bg-black" : ""
                     } text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2 `}
+                    onClick={() => setProfileOpen(false)}
                   >
                     Add Property
                   </Link>

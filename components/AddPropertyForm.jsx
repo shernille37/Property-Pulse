@@ -7,20 +7,17 @@ import { useState, useTransition } from "react";
 
 const AddPropertyForm = () => {
   const [isPending, startTransition] = useTransition();
-  const [isLoading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
     startTransition(async () => {
       const formData = new FormData(e.target);
       await addProperty(formData);
-      setLoading(false);
     });
   };
 
-  if (isPending) return <LoadingPage />;
+  if (isPending) return <LoadingPage msg={"Adding Property"} />;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -417,7 +414,7 @@ const AddPropertyForm = () => {
         <button
           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
           type="submit"
-          disabled={isLoading || isPending}
+          disabled={isPending}
         >
           Add Property
         </button>

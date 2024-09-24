@@ -1,8 +1,26 @@
 "use client";
 
+import updateProperty from "@/app/actions/updateProperty";
+import LoadingPage from "@/app/loading";
+
+import { useState, useTransition } from "react";
+
 const EditPropertyForm = ({ property }) => {
+  const [isPending, startTransition] = useTransition();
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+
+    startTransition(async () => {
+      const formData = new FormData(e.target);
+      await updateProperty(property._id, formData);
+    });
+  };
+
+  if (isPending) return <LoadingPage msg={"Updating Property"} />;
+
   return (
-    <form>
+    <form onSubmit={handleUpdate}>
       <h2 className="text-3xl text-center font-semibold mb-6">Edit Property</h2>
 
       <div className="mb-4">
