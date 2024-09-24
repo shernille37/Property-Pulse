@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Link from "next/link";
 import connectDB from "@/config/database";
 import Property from "@/models/Property";
 
 import { getSessionUser } from "@/utils/getSessionUser";
 
 import UserProperties from "@/components/UserProperties";
+import { convertToObject } from "@/utils/convertToObject";
 
 const ProfilePage = async () => {
   await connectDB();
@@ -16,6 +16,8 @@ const ProfilePage = async () => {
   const userProperties = await Property.find({
     owner: sessionUser.userId,
   }).lean();
+
+  const convertedUserProperties = convertToObject(userProperties);
 
   return (
     <section className="bg-blue-50">
@@ -45,7 +47,8 @@ const ProfilePage = async () => {
 
             <div className="md:w-3/4 md:pl-4">
               <h2 className="text-xl font-semibold mb-4">Your Listings</h2>
-              {userProperties.map((property) => (
+
+              {convertedUserProperties.map((property) => (
                 <UserProperties key={property._id} property={property} />
               ))}
             </div>

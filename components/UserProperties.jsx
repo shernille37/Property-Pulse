@@ -1,8 +1,18 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import deleteProperty from "@/app/actions/deleteProperty";
 
 const UserProperties = ({ property }) => {
-  console.log("Property", property);
+  const handleDelete = async (propertyId) => {
+    const confirmed = window.confirm("Are you sure?");
+
+    if (!confirmed) return;
+
+    await deleteProperty(propertyId);
+  };
+
   return (
     <div className="mb-10">
       <Link href={`/properties/${property._id}`}>
@@ -31,6 +41,7 @@ const UserProperties = ({ property }) => {
         <button
           className="bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
           type="button"
+          onClick={() => handleDelete(property._id)}
         >
           Delete
         </button>
