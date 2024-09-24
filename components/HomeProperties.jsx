@@ -1,10 +1,8 @@
 import PropertyCard from "@/components/PropertyCard";
 import Link from "next/link";
-
-import { FaExclamationTriangle } from "react-icons/fa";
-
 import connectDB from "@/config/database";
 import Property from "@/models/Property";
+import ErrorBadge from "./ErrorBadge";
 
 const HomeProperties = async () => {
   await connectDB();
@@ -22,12 +20,7 @@ const HomeProperties = async () => {
             Recent Properties
           </h2>
           {recentProperties.length === 0 ? (
-            <div className="flex items-center justify-center">
-              <FaExclamationTriangle className="fas fa-exclamation-triangle text-3xl text-yellow-400 mr-8" />
-              <h2 className="text-3xl font-bold text-gray-500 text-center">
-                No Properties Found
-              </h2>
-            </div>
+            <ErrorBadge error={"No Properties Found"} />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {recentProperties.map((property) => (

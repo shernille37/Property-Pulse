@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import Property from "@/models/Property";
 import PropertyHeaderImage from "@/components/PropertyHeaderImage";
 import PropertyDetails from "@/components/PropertyDetails";
+import PropertyImages from "@/components/PropertyImages";
 
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
@@ -39,6 +40,8 @@ const ProperyPage = async ({ params }) => {
           </div>
         </div>
       </section>
+
+      <PropertyImages images={property.images} />
     </>
   );
 };

@@ -4,8 +4,9 @@ import Property from "@/models/Property";
 
 import { getSessionUser } from "@/utils/getSessionUser";
 
-import UserProperties from "@/components/UserProperties";
 import { convertToObject } from "@/utils/convertToObject";
+import UserProperties from "@/components/UserProperties";
+import ErrorBadge from "@/components/ErrorBadge";
 
 const ProfilePage = async () => {
   await connectDB();
@@ -48,9 +49,15 @@ const ProfilePage = async () => {
             <div className="md:w-3/4 md:pl-4">
               <h2 className="text-xl font-semibold mb-4">Your Listings</h2>
 
-              {convertedUserProperties.map((property) => (
-                <UserProperties key={property._id} property={property} />
-              ))}
+              {convertedUserProperties.length === 0 ? (
+                <ErrorBadge error={"No Properties Found"} />
+              ) : (
+                <>
+                  {convertedUserProperties.map((property) => (
+                    <UserProperties property={property} />
+                  ))}
+                </>
+              )}
             </div>
           </div>
         </div>
