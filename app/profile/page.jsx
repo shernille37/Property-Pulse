@@ -31,9 +31,9 @@ const ProfilePage = async () => {
                 <Image
                   className="h-32 w-32 md:h-48 md:w-48 rounded-full mx-auto md:mx-0"
                   src={user.image}
-                  alt="User"
-                  width={200}
-                  height={200}
+                  alt={user.name}
+                  width={500}
+                  height={500}
                 />
               </div>
 
@@ -54,7 +54,7 @@ const ProfilePage = async () => {
               ) : (
                 <>
                   {convertedUserProperties.map((property) => (
-                    <UserProperties property={property} />
+                    <UserProperties key={property._id} property={property} />
                   ))}
                 </>
               )}

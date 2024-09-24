@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { toast } from "react-toastify";
 import deleteProperty from "@/app/actions/deleteProperty";
 
 const UserProperties = ({ property }) => {
@@ -11,6 +12,8 @@ const UserProperties = ({ property }) => {
     if (!confirmed) return;
 
     await deleteProperty(propertyId);
+
+    toast.success("Property Deleted Successfully");
   };
 
   return (
@@ -33,7 +36,7 @@ const UserProperties = ({ property }) => {
       </div>
       <div className="mt-2">
         <Link
-          href="/"
+          href={`/properties/${property._id}/edit`}
           className="bg-blue-500 text-white px-3 py-3 rounded-md mr-2 hover:bg-blue-600"
         >
           Edit

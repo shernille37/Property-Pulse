@@ -11,7 +11,8 @@ import { FaArrowLeft } from "react-icons/fa";
 const ProperyPage = async ({ params }) => {
   await connectDB();
 
-  //if (!mongoose.Types.ObjectId.isValid(params.id)) notFound();
+  if (!mongoose.Types.ObjectId.isValid(params.id))
+    throw new Error("Object not valid");
 
   const property = await Property.findById(params.id).lean();
 
