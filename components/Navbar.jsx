@@ -162,15 +162,12 @@ const Navbar = () => {
                     aria-haspopup="true"
                     onClick={() => setProfileOpen((prev) => !prev)}
                   >
-                    <span className="absolute -inset-1.5"></span>
-                    <span className="sr-only">Open user menu</span>
                     <Image
                       className="h-8 w-8 rounded-full"
                       src={session.user.image}
                       alt=""
-                      width={0}
-                      height={0}
-                      quality={100}
+                      width={500}
+                      height={500}
                     />
                   </button>
                 </div>
@@ -191,6 +188,7 @@ const Navbar = () => {
                       role="menuitem"
                       tabIndex="-1"
                       id="user-menu-item-0"
+                      onClick={() => setProfileOpen(false)}
                     >
                       Your Profile
                     </Link>
@@ -200,6 +198,7 @@ const Navbar = () => {
                       role="menuitem"
                       tabIndex="-1"
                       id="user-menu-item-2"
+                      onClick={() => setProfileOpen(false)}
                     >
                       Saved Properties
                     </Link>

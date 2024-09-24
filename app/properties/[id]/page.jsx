@@ -6,7 +6,6 @@ import PropertyDetails from "@/components/PropertyDetails";
 
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
-import { notFound } from "next/navigation";
 
 const ProperyPage = async ({ params }) => {
   await connectDB();
