@@ -9,8 +9,6 @@ import UserProperties from "@/components/UserProperties";
 import ErrorBadge from "@/components/ErrorBadge";
 
 const ProfilePage = async () => {
-  await connectDB();
-
   const sessionUser = await getSessionUser();
   const { user } = sessionUser;
 
