@@ -11,6 +11,8 @@ import PropertyContactForm from "@/components/PropertyContactForm";
 
 import NotFoundPage from "@/app/not-found";
 
+import { convertToObject } from "@/utils/convertToObject";
+
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 
@@ -22,6 +24,8 @@ const PropertyPage = async ({ params }) => {
   }
 
   const property = await Property.findById(params.id).lean();
+
+  const convertedProperty = convertToObject(property);
 
   if (!property) throw new Error("Property Not Found!");
 
@@ -46,9 +50,9 @@ const PropertyPage = async ({ params }) => {
           <div className="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
             <PropertyDetails property={property} />
             <aside className="space-y-4">
-              <BookmarkButton property={property} />
-              <ShareButtons property={property} />
-              <PropertyContactForm property={property} />
+              <BookmarkButton property={convertedProperty} />
+              <ShareButtons property={convertedProperty} />
+              <PropertyContactForm property={convertedProperty} />
             </aside>
           </div>
         </div>
