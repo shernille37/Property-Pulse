@@ -1,6 +1,8 @@
 import connectDB from "@/config/database";
 import mongoose from "mongoose";
 import Property from "@/models/Property";
+import User from "@/models/User";
+
 import PropertyHeaderImage from "@/components/PropertyHeaderImage";
 import PropertyDetails from "@/components/PropertyDetails";
 import PropertyImages from "@/components/PropertyImages";
@@ -12,6 +14,7 @@ import PropertyContactForm from "@/components/PropertyContactForm";
 import NotFoundPage from "@/app/not-found";
 
 import { convertToObject } from "@/utils/convertToObject";
+import { getSessionUser } from "@/utils/getSessionUser";
 
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
@@ -19,15 +22,24 @@ import { FaArrowLeft } from "react-icons/fa";
 const PropertyPage = async ({ params }) => {
   await connectDB();
 
+  const sessionUser = await getSessionUser();
+
   if (!mongoose.Types.ObjectId.isValid(params.id)) {
     return <NotFoundPage />;
   }
 
   const property = await Property.findById(params.id).lean();
-
   const convertedProperty = convertToObject(property);
 
   if (!property) throw new Error("Property Not Found!");
+
+  // Bookmark status
+  let isBookmarked = false;
+
+  if (sessionUser) {
+    const user = await User.findById(sessionUser.userId);
+    isBookmarked = user.bookmarks.includes(property._id);
+  }
 
   return (
     <>
@@ -50,7 +62,10 @@ const PropertyPage = async ({ params }) => {
           <div className="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
             <PropertyDetails property={property} />
             <aside className="space-y-4">
-              <BookmarkButton property={convertedProperty} />
+              <BookmarkButton
+                status={isBookmarked}
+                property={convertedProperty}
+              />
               <ShareButtons property={convertedProperty} />
               <PropertyContactForm property={convertedProperty} />
             </aside>
