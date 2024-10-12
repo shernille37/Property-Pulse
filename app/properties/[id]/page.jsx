@@ -9,6 +9,8 @@ import BookmarkButton from "@/components/BookmarkButton";
 import ShareButtons from "@/components/ShareButtons";
 import PropertyContactForm from "@/components/PropertyContactForm";
 
+import NotFoundPage from "@/app/not-found";
+
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
 
@@ -16,7 +18,7 @@ const PropertyPage = async ({ params }) => {
   await connectDB();
 
   if (!mongoose.Types.ObjectId.isValid(params.id)) {
-    throw new Error("Object not valid");
+    return <NotFoundPage />;
   }
 
   const property = await Property.findById(params.id).lean();
