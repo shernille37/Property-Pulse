@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -6,9 +8,13 @@ import {
   FaRulerCombined,
   FaMoneyBill,
   FaMapMarker,
+  FaTrash,
 } from "react-icons/fa";
 
-const PropertyCard = ({ property }) => {
+import bookmarkProperty from "@/app/actions/bookmarkProperty";
+import { toast } from "react-toastify";
+
+const PropertyCard = ({ property, savedProperty = false }) => {
   const getRateDisplay = () => {
     const { rates } = property;
     if (rates.monthly) {
@@ -20,8 +26,25 @@ const PropertyCard = ({ property }) => {
     }
   };
 
+  const handleDelete = async () => {
+    if (!savedProperty) return;
+
+    const res = await bookmarkProperty(property._id);
+
+    if (res.error) return toast.error(res.error);
+    toast.success(res.message);
+  };
+
   return (
     <div className="rounded-xl shadow-md relative">
+      {savedProperty && (
+        <button
+          onClick={handleDelete}
+          className="absolute top-0 left-0 mt-2 ml-2 w-8 h-8 p-2 rounded-full bg-red-500 flex items-center justify-center transition-colors hover:bg-red-100"
+        >
+          <FaTrash className="text-white" />
+        </button>
+      )}
       <Image
         src={`${property.images[0]}`}
         alt=""
@@ -77,6 +100,7 @@ const PropertyCard = ({ property }) => {
               {property.location.city} {property.location.state}{" "}
             </span>
           </div>
+
           <Link
             href={`/properties/${property._id}`}
             className="h-[36px] bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-center text-sm"
