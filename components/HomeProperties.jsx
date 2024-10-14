@@ -3,6 +3,7 @@ import Link from "next/link";
 import connectDB from "@/config/database";
 import Property from "@/models/Property";
 import ErrorBadge from "./ErrorBadge";
+import { convertToObject } from "@/utils/convertToObject";
 
 const HomeProperties = async () => {
   await connectDB();
@@ -12,6 +13,8 @@ const HomeProperties = async () => {
     .limit(3)
     .lean();
 
+  const convertedProperties = convertToObject(recentProperties);
+
   return (
     <>
       <section className="px-4 py-6">
@@ -19,11 +22,11 @@ const HomeProperties = async () => {
           <h2 className="text-3xl font-bold text-blue-500 mb-6 text-center">
             Recent Properties
           </h2>
-          {recentProperties.length === 0 ? (
+          {convertedProperties.length === 0 ? (
             <ErrorBadge error={"No Properties Found"} />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {recentProperties.map((property) => (
+              {convertedProperties.map((property) => (
                 <PropertyCard key={property._id} property={property} />
               ))}
             </div>

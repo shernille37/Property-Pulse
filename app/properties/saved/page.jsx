@@ -10,23 +10,21 @@ import { convertToObject } from "@/utils/convertToObject";
 
 const SavedPropertiesPage = async () => {
   await connectDB();
-  const sessionUser = await getSessionUser();
+  const { userId } = await getSessionUser();
 
-  if (!sessionUser) throw new Error("Session is required");
+  if (!userId) throw new Error("Session is required");
 
-  const { userId } = sessionUser;
-
-  const user = await User.findById(userId);
-
-  const properties = await Property.find({
-    _id: { $in: user.bookmarks },
-  }).lean();
+  // Populate (Join to the Property Model)
+  const { bookmarks: properties } = await User.findById(userId)
+    .populate("bookmarks")
+    .lean();
 
   const convertedProperties = convertToObject(properties);
 
   return (
     <section className="px-4 py-6">
       <div className="container-xl lg:container m-auto px-4 py-6">
+        <h1 className="text-2xl mb-4">Saved Properties</h1>
         {properties.length === 0 ? (
           <ErrorPage error={"No Saved Properties"} />
         ) : (
