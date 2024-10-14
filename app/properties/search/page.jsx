@@ -7,7 +7,6 @@ import PropertyCard from "@/components/PropertyCard";
 import { convertToObject } from "@/utils/convertToObject";
 
 import { FaArrowAltCircleLeft } from "react-icons/fa";
-import ErrorPage from "@/app/error";
 import ErrorBadge from "@/components/ErrorBadge";
 
 const SearchResultsPage = async ({
