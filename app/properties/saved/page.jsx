@@ -1,5 +1,4 @@
 import connectDB from "@/config/database";
-import Property from "@/models/Property";
 
 import PropertyCard from "@/components/PropertyCard";
 import ErrorPage from "@/app/error";
