@@ -1,6 +1,26 @@
+"use client";
+
+import { useState } from "react";
+import { toast } from "react-toastify";
+import markRead from "@/app/actions/markRead";
+
 const MessageCard = ({ data }) => {
+  const [isRead, setIsRead] = useState(data.read);
+
+  const handleRead = async () => {
+    const read = await markRead(data._id);
+
+    setIsRead(read);
+    toast.success(`Marked as ${read ? "read" : "new"}`);
+  };
+
   return (
     <div className="relative bg-white p-4 rounded-md shadow-md border border-gray-200">
+      {!isRead && (
+        <div className="absolute top-2 right-2 bg-yellow-500 text-white px-2 py-1 rounded-md">
+          New
+        </div>
+      )}
       <h2 className="text-xl mb-4">
         <span className="font-bold">Property Inquiry: </span>
         {data.property.name}
@@ -26,11 +46,14 @@ const MessageCard = ({ data }) => {
         </li>
         <li>
           <strong>Received: </strong>{" "}
-          {new Date(data.createdAt).toLocaleString()}
+          {new Date(data.createdAt).toLocaleString("en-US")}
         </li>
       </ul>
-      <button className="mt-4 mr-3 bg-blue-500 text-white py-1 px-3 rounded-md">
-        Mark As Read
+      <button
+        onClick={handleRead}
+        className="mt-4 mr-3 bg-blue-500 text-white py-1 px-3 rounded-md"
+      >
+        {isRead ? "Mark as New" : "Mark as Read"}
       </button>
       <button className="mt-4 bg-red-500 text-white py-1 px-3 rounded-md">
         Delete
