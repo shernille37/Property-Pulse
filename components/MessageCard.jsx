@@ -2,15 +2,21 @@
 
 import { useState } from "react";
 import { toast } from "react-toastify";
-import markRead from "@/app/actions/markRead";
 
+import markRead from "@/app/actions/markRead";
 import deleteMessage from "@/app/actions/deleteMessage";
+
+import { useMessageStore } from "@/providers/MessageStoreProvider";
 
 const MessageCard = ({ data }) => {
   const [isRead, setIsRead] = useState(data.read);
 
+  const { setUnreadCount } = useMessageStore((state) => state);
+
   const handleRead = async () => {
     const read = await markRead(data._id);
+
+    setUnreadCount();
 
     setIsRead(read);
     toast.success(`Marked as ${read ? "read" : "new"}`);
@@ -18,6 +24,7 @@ const MessageCard = ({ data }) => {
 
   const handleDelete = async () => {
     await deleteMessage(data._id);
+    setUnreadCount();
 
     toast.success("Message deleted");
   };

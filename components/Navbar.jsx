@@ -10,6 +10,8 @@ import logo from "@/assets/images/logo-white.png";
 
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
+import { useMessageStore } from "@/providers/MessageStoreProvider";
+
 const Navbar = () => {
   const { data: session } = useSession();
 
@@ -19,7 +21,15 @@ const Navbar = () => {
 
   const pathName = usePathname();
 
+  const { unreadCount, setUnreadCount } = useMessageStore((state) => state);
+
   useEffect(() => {
+    // Fetch unreadCount
+    if (session) setUnreadCount();
+  }, [session, setUnreadCount]);
+
+  useEffect(() => {
+    // Fetch Providers
     const setAuthProviders = async () => {
       const res = await getProviders();
       setProviders(res);
@@ -150,7 +160,7 @@ const Navbar = () => {
                   </svg>
                 </button>
                 <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
-                  5
+                  {unreadCount}
                   {/* <!-- Replace with the actual number of notifications --> */}
                 </span>
               </Link>

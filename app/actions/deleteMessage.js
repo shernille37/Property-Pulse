@@ -21,7 +21,7 @@ async function deleteMessage(messageId) {
 
   await message.deleteOne();
 
-  revalidatePath("/", "layout");
+  revalidatePath("/messages", "page");
 }
 
 export default deleteMessage;

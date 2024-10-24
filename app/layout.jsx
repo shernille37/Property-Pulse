@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AuthProvider from "@/components/AuthProvider";
+import { MessageStoreProvider } from "@/providers/MessageStoreProvider";
 
 import "@/assets/styles/globals.css";
 
@@ -15,14 +16,16 @@ export const metadata = {
 const MainLayout = ({ children }) => {
   return (
     <AuthProvider>
-      <html>
-        <body>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-          <ToastContainer />
-        </body>
-      </html>
+      <MessageStoreProvider>
+        <html>
+          <body>
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+            <ToastContainer />
+          </body>
+        </html>
+      </MessageStoreProvider>
     </AuthProvider>
   );
 };
