@@ -6,8 +6,8 @@ import PropertyCard from "@/components/PropertyCard";
 
 import { convertToObject } from "@/utils/convertToObject";
 
-import { FaArrowAltCircleLeft } from "react-icons/fa";
 import ErrorBadge from "@/components/ErrorBadge";
+import { FaArrowLeft } from "react-icons/fa";
 
 const SearchResultsPage = async ({
   searchParams: { location, propertyType },
@@ -45,12 +45,15 @@ const SearchResultsPage = async ({
 
       <div className="px-4 py-6">
         <div className="container-xl lg:container m-auto px-4 py-6">
-          <Link
-            href="/properties"
-            className="flex items-center text-blue-500 hover:underline mb-3"
-          >
-            <FaArrowAltCircleLeft className="mr-2 mb-1" /> Back to Properties
-          </Link>
+          <div className="container m-auto py-6 px-6">
+            <Link
+              href="/properties"
+              className="text-blue-500 hover:text-blue-600 flex items-center"
+            >
+              <FaArrowLeft className="fas fa-arrow-left mr-2" />
+              Back to Properties
+            </Link>
+          </div>
 
           <h1 className="text-2xl mb-4">Search Results</h1>
 

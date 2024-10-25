@@ -11,20 +11,25 @@ import { useMessageStore } from "@/providers/MessageStoreProvider";
 const MessageCard = ({ data }) => {
   const [isRead, setIsRead] = useState(data.read);
 
-  const { setUnreadCount } = useMessageStore((state) => state);
+  const { incrementUnreadCount, decrementUnreadCount } = useMessageStore(
+    (state) => state
+  );
 
   const handleRead = async () => {
     const read = await markRead(data._id);
 
-    setUnreadCount();
-
     setIsRead(read);
+
+    if (isRead) incrementUnreadCount();
+    else decrementUnreadCount();
+
     toast.success(`Marked as ${read ? "read" : "new"}`);
   };
 
   const handleDelete = async () => {
     await deleteMessage(data._id);
-    setUnreadCount();
+
+    if (!isRead) decrementUnreadCount();
 
     toast.success("Message deleted");
   };

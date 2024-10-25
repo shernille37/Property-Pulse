@@ -12,5 +12,11 @@ export const createMsgStore = (initState = defaultInitState) => {
       const { count } = await getUnreadCount();
       set({ unreadCount: count });
     },
+    incrementUnreadCount: () =>
+      set((state) => ({ unreadCount: state.unreadCount + 1 })),
+    decrementUnreadCount: () =>
+      set((state) => ({
+        unreadCount: state.unreadCount > 0 ? state.unreadCount - 1 : 0,
+      })),
   }));
 };
