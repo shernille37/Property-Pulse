@@ -6,6 +6,7 @@ import AuthProvider from "@/components/AuthProvider";
 import { MessageStoreProvider } from "@/providers/MessageStoreProvider";
 
 import "@/assets/styles/globals.css";
+import "photoswipe/dist/photoswipe.css";
 
 export const metadata = {
   title: "Meow Meow",
