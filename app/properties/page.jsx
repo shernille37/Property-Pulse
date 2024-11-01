@@ -3,11 +3,17 @@ import PropertyCard from "@/components/PropertyCard";
 import connectDB from "@/config/database";
 import Property from "@/models/Property";
 import ErrorPage from "../error";
+import Pagination from "@/components/Pagination";
 import { convertToObject } from "@/utils/convertToObject";
 
-const PropertiesPage = async () => {
+const PropertiesPage = async ({ searchParams: { page = 1, limit = 9 } }) => {
   await connectDB();
-  const properties = await Property.find({}).lean();
+
+  const total = await Property.countDocuments({});
+  if (page <= 0) page = 1;
+  const offset = (page - 1) * limit;
+
+  const properties = await Property.find({}).skip(offset).limit(limit).lean();
   const convertedProperties = convertToObject(properties);
 
   return (
@@ -21,6 +27,14 @@ const PropertiesPage = async () => {
               <PropertyCard key={property._id} property={property} />
             ))}
           </div>
+        )}
+
+        {total > limit && (
+          <Pagination
+            page={parseInt(page)}
+            limit={parseInt(limit)}
+            totalItems={total}
+          />
         )}
       </div>
     </section>

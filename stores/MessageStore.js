@@ -8,7 +8,7 @@ const defaultInitState = {
 export const createMsgStore = (initState = defaultInitState) => {
   return createStore((set) => ({
     ...initState,
-    setUnreadCount: async () => {
+    initUnreadCount: async () => {
       const { count } = await getUnreadCount();
       set({ unreadCount: count });
     },

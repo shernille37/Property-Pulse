@@ -21,12 +21,12 @@ const Navbar = () => {
 
   const pathName = usePathname();
 
-  const { unreadCount, setUnreadCount } = useMessageStore((state) => state);
+  const { unreadCount, initUnreadCount } = useMessageStore((state) => state);
 
   useEffect(() => {
     // Fetch unreadCount
-    if (session) setUnreadCount();
-  }, [session, setUnreadCount]);
+    if (session) initUnreadCount();
+  }, [session, initUnreadCount]);
 
   useEffect(() => {
     // Fetch Providers

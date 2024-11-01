@@ -45,14 +45,17 @@ const PropertyCard = ({ property, savedProperty = false }) => {
           <FaTrash className="text-white" />
         </button>
       )}
-      <Image
-        src={`${property.images[0]}`}
-        alt=""
-        width="0"
-        height="0"
-        sizes="100vw"
-        className="w-full h-auto rounded-t-xl"
-      />
+
+      <Link href={`/properties/${property._id}`}>
+        <Image
+          src={`${property.images[0]}`}
+          alt=""
+          width="0"
+          height="0"
+          sizes="100vw"
+          className="w-full h-auto rounded-t-xl"
+        />
+      </Link>
       <div className="p-4">
         <div className="text-center md:text-left lg:text-left mb-6">
           <div className="text-gray-600">{property.type}</div>
